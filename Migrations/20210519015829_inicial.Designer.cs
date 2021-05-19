@@ -10,7 +10,7 @@ using pokemonapp.Models;
 namespace pokemonapp.Migrations
 {
     [DbContext(typeof(PokemonContext))]
-    [Migration("20210511225157_inicial")]
+    [Migration("20210519015829_inicial")]
     partial class inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,9 @@ namespace pokemonapp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Foto")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombre")
                         .HasColumnType("nvarchar(max)");
@@ -81,7 +84,7 @@ namespace pokemonapp.Migrations
                     b.Property<string>("Nombre")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("RegionId")
+                    b.Property<int>("RegionId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -149,7 +152,9 @@ namespace pokemonapp.Migrations
                 {
                     b.HasOne("pokemonapp.Models.Region", "Region")
                         .WithMany("Pueblos")
-                        .HasForeignKey("RegionId");
+                        .HasForeignKey("RegionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Region");
                 });

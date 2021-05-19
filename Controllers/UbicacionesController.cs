@@ -23,30 +23,9 @@ namespace pokemonapp.Controllers
             return View(pueblos);
         }
         public IActionResult Entrenadores() {
-            var entrenadores = _context.Entrenadores.Include(x => x.Foto).OrderBy(r => r.Nombre).ToList();
+            var entrenadores = _context.Entrenadores.Include(x => x.Pueblo).OrderBy(r => r.Nombre).ToList();
             return View(entrenadores);
         }
-
-        //ENTRENADOR
-        public IActionResult NuevoEntrenador() {
-            ViewBag.Pueblos = _context.Pueblos.ToList().Select(e => new SelectListItem(e.Nombre, e.Id.ToString()));
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult NuevoEntrenador(Entrenador e) {
-            if (ModelState.IsValid) {
-                _context.Add(e);
-                _context.SaveChanges();
-                return RedirectToAction("NuevoEntrenadorConfirmacion");
-            }
-            return View(e);
-        }
-
-        public IActionResult NuevoEntrenadorConfirmacion() {
-            return View();
-        }
-        ////////////////////////////////////
 
         public IActionResult NuevoPueblo() {
             ViewBag.Regiones = _context.Regiones.ToList().Select(r => new SelectListItem(r.Nombre, r.Id.ToString()));
@@ -84,6 +63,28 @@ namespace pokemonapp.Controllers
         public IActionResult NuevaRegionConfirmacion() {
             return View();
         }
+
+        //ENTRENADOR
+        public IActionResult NuevoEntrenador() {
+            ViewBag.Pueblos = _context.Pueblos.ToList().Select(p => new SelectListItem(p.Nombre, p.Id.ToString()));
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult NuevoEntrenador(Entrenador r) {
+            if (ModelState.IsValid) {
+                _context.Add(r);
+                _context.SaveChanges();
+                return RedirectToAction("NuevoEntrenadorConfirmacion");
+            }
+            return View(r);
+        }
+
+        public IActionResult NuevoEntrenadorConfirmacion() {
+            return View();
+        }
+
+        
 
         [HttpPost]
         public IActionResult BorrarRegion(int id) {

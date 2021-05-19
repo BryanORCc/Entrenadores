@@ -10,7 +10,7 @@ using pokemonapp.Models;
 namespace pokemonapp.Migrations
 {
     [DbContext(typeof(PokemonContext))]
-    [Migration("20210518224656_pueblo_sp")]
+    [Migration("20210519015921_pueblo_sp")]
     partial class pueblo_sp
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,9 @@ namespace pokemonapp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Foto")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombre")
                         .HasColumnType("nvarchar(max)");
